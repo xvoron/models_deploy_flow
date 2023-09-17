@@ -1,0 +1,9 @@
+models:
+  min-workers: 1
+  max-workers: 1
+  batch-size: 1
+  max-batch-delay: 0
+  duck_detector:
+    url: duck_detector.mar
+dag:
+  pre_processing: [duck_detector]
