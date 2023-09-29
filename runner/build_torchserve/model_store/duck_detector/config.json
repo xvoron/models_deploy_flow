@@ -1,0 +1,37 @@
+{
+    "project_id": "duck_detector",
+    "problem_type": "object_detection",
+    "model_name": "duck_detector",
+    "augmentations": "Rotate, MultiplicativeNoise, VerticalFlip, HorizontalFlip, MotionBlur, Blur, ColorJitter, Scale,AdditiveNoise, BrightnessContrast, ShiftScaleRotate, Crop",
+    "classes": {
+        "segmentation": [
+            "background"
+        ],
+        "localization": [],
+        "classification": [],
+        "object_detection": [
+            "1"
+        ],
+        "region_classification": [],
+        "anomaly_detection": [
+            "Normal"
+        ]
+    },
+    "num_epochs": 40,
+    "batch_size": 64,
+    "split_ratio": 0.85,
+    "shape": {
+        "width": 256,
+        "height": 256
+    },
+    "shape_random_crop": null,
+    "disable_workers": true,
+    "device": 0,
+    "learning_rate": 0.0002,
+    "seed": null,
+    "model_type": "small",
+    "optimizer": "adam",
+    "lr_scheduler": "cosine",
+    "nms_threshold": 0.5,
+    "score_threshold": 0.5
+}

@@ -1,0 +1,11 @@
+{
+  "createdOn": "03/09/2023 13:23:11",
+  "runtime": "python",
+  "model": {
+    "modelName": "duck_detector",
+    "serializedFile": "model.pt",
+    "handler": "handler.py",
+    "modelVersion": "1"
+  },
+  "archiverVersion": "0.7.1"
+}

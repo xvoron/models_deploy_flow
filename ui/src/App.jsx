@@ -17,8 +17,8 @@ const port = 5123;
 
 const initialNodes = [
     { id: '1', position: { x: 0, y: 0 }, data: { label: 'Image' } },
-    { id: '2', position: { x: 0, y: 100 }, data: { label: 'Resize' } },
-    { id: '3', position: { x: 0, y: 200 }, data: { label: 'Model' } },
+    { id: '2', position: { x: 0, y: 100 }, data: { label: 'Resize', config: {size: (100, 100) }} },
+    { id: '3', position: { x: 0, y: 200 }, data: { label: 'Model', config: {path: 'model.onnx' }} },
     { id: '4', position: { x: 0, y: 300 }, data: { label: 'Output' } },
 ];
 
