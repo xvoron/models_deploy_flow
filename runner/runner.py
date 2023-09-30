@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import os
 from typing import Any, Optional
 
+import cv2
 import numpy as np
 import onnxruntime as ort
 from pydantic import BaseModel, validator
@@ -23,7 +24,6 @@ def io_tracker(func):
         self.outputs = func(self, x)
         return self.outputs
     return wrapper
-
 
 class Op(ABC):
     def __init__(self, config):
@@ -47,22 +47,58 @@ class Op(ABC):
         return self.__repr__()
 
 
-class Source(Op):
-    def _name(self):
-        return "Source"
-
-
 class Image(Op):
-    def __call__(self, x: np.ndarray):
-        return x
+    class Config(BaseModel):
+        url: str
+
+    def __init__(self, config: dict):
+        super().__init__(config)
+        self.config = self.Config(**config)
+
+    def __call__(self, x):
+        assert x is None
+        image = cv2.imread(self.config.url)     # BGR
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        return image    # RGB
 
     def _name(self):
         return "Image"
 
 
-class Input(Op):
+class Video(Op):
+    class Config(BaseModel):
+        url: str
+
+    def __init__(self, config: dict):
+        super().__init__(config)
+        self.config = self.Config(**config)
+
+    def __call__(self, x):
+        assert x is None
+        #cap = cv2.VideoCapture(self.config.url)
+        #while cap.isOpened():
+        #    ret, frame = cap.read()
+        #    if ret:
+        #        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        #    else:
+        #        break
+        #    yield frame
+        return np.random.randint(0, 255, (224, 224, 3))
+
     def _name(self):
-        return "Input"
+        return "Video"
+
+
+class Visualizer(Op):
+    def __call__(self, x):
+        print(x)
+        ...
+
+    def _name(self):
+        return "Visualizer"
+
+
+
 
 
 class Resize(Op):
@@ -74,8 +110,7 @@ class Resize(Op):
         self.config = self.Config(**config)
 
     def __call__(self, x: np.ndarray):
-        # TODO: Implement resize
-        return x
+        return cv2.resize(x, tuple(self.config.size))   # RGB
 
     def _name(self):
         return "Resize"
@@ -108,6 +143,12 @@ class Model(Op):
 
 
     def __call__(self, x: np.ndarray):
+        print(x.shape)
+        # Add batch dimension
+        x = np.expand_dims(x, axis=0) # RGB
+        # (B, H, W, C) -> (B, C, H, W)
+        x = np.transpose(x, (0, 3, 1, 2))
+        x = x.astype(np.float32) / 255.0
         return self._session.run([self._output_name], {self._input_name: x})[0]
 
     def _name(self):
@@ -201,6 +242,14 @@ def forwardpass(node: Node, data) -> None:
         for child in node.children:
             forwardpass(child, node.forward(data))
 
+def print_tree(tree, level=0):
+    if tree is None:
+        return
+    print("\t" * level + tree.id)
+    if tree.children is not None:
+        for child in tree.children:
+            print_tree(child, level + 1)
+
 
 if __name__ == "__main__":
     from utils import get_test_data
@@ -213,10 +262,10 @@ if __name__ == "__main__":
     nodes_dict = {node.id: node for node in nodes}
 
     tree = build_tree(nodes, edges)
+    print_tree(tree)
     validate_tree(tree)
     assert tree is not None
 
-    d = np.random.randn(1, 3, 224, 224).astype(np.float32)  # (B, C, H, W)
-    forwardpass(tree, d)
+    forwardpass(tree, None)
     print([(nodes_dict[id].inputs, nodes_dict[id].outputs) for id in ids_to_return])
 
