@@ -14,8 +14,31 @@ UI.
     - [ ] Run flow
     - [ ] Visualizations using sockets from the backend
 - [.] Runner:
-    - [ ] Topological tree generation
-    - [X] Async runner
+    - [X] Topological tree generation
+    - [X] Async runner experiments
+    - [ ] Implement async runner
+    - [ ] Implement initial blocks:
+        - [ ] Data sources:
+            - [ ] Image
+            - [ ] Video
+            - [ ] RTSP stream
+            - [ ] s3 bucket
+        - [ ] Operators:
+            - [ ] Image augmentations:
+                - [ ] Resize
+                - [ ] Crop
+                - [ ] Rotate
+                - [ ] etc.
+            - [ ] Models:
+                - [ ] Learn about ONNX standards
+            - [ ] Post-processing:
+                - [ ] Segmentation
+                - [ ] ???
+            - [ ] Visualizations:
+                - [ ] Scope Block
+                - [ ] Bounding boxes
+                - [ ] Segmentation masks
+                - [ ] ???
     - [ ] Server side
     - [ ] Sockets
 
