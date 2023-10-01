@@ -13,19 +13,19 @@ UI.
     - [ ] Load flow
     - [ ] Run flow
     - [ ] Visualizations using sockets from the backend
-- [.] Runner:
+- [o] Runner:
     - [X] Topological tree generation
     - [X] Async runner experiments
-    - [ ] Implement async runner
-    - [ ] Implement initial blocks:
-        - [ ] Data sources:
-            - [ ] Image
-            - [ ] Video
+    - [X] Implement async runner
+    - [o] Implement initial blocks:
+        - [o] Data sources:
+            - [X] Image
+            - [X] Video
             - [ ] RTSP stream
             - [ ] s3 bucket
-        - [ ] Operators:
-            - [ ] Image augmentations:
-                - [ ] Resize
+        - [.] Operators:
+            - [.] Image augmentations:
+                - [X] Resize
                 - [ ] Crop
                 - [ ] Rotate
                 - [ ] etc.
@@ -41,4 +41,7 @@ UI.
                 - [ ] ???
     - [ ] Server side
     - [ ] Sockets
+- [ ] Tests:
+    - [ ] Runner
+    - [ ] UI
 
