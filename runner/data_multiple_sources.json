@@ -1,0 +1,88 @@
+{
+    "nodes": [
+        {
+            "id": "1",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "data": {
+                "label": "Video",
+                "config": {
+                    "url": "test.mp4"
+                }
+            }
+        },
+        {
+            "id": "0",
+            "position": {
+                "x": 30,
+                "y": 0
+            },
+            "data": {
+                "label": "Video",
+                "config": {
+                    "url": "test.mp4"
+                }
+            }
+        },
+        {
+            "id": "2",
+            "position": {
+                "x": 0,
+                "y": 100
+            },
+            "data": {
+                "label": "Resize",
+                "config": {
+                    "size": [224, 224]
+                }
+            }
+        },
+        {
+            "id": "3",
+            "position": {
+                "x": 0,
+                "y": 200
+            },
+            "data": {
+                "label": "Model",
+                "config": {
+                    "url": "model.onnx"
+                }
+            }
+        },
+        {
+            "id": "4",
+            "position": {
+                "x": 0,
+                "y": 300
+            },
+            "data": {
+                "label": "Output"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e0-2",
+            "source": "0",
+            "target": "2"
+        },
+        {
+            "id": "e1-2",
+            "source": "1",
+            "target": "2"
+        },
+        {
+            "id": "e2-3",
+            "source": "2",
+            "target": "3"
+        },
+        {
+            "id": "e3-4",
+            "source": "3",
+            "target": "4"
+        }
+    ]
+}
